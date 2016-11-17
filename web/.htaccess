@@ -1,0 +1,15 @@
+RewriteEngine on
+
+# If a directory or a file exists, use the request directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# Otherwise forward the request to index.php
+RewriteRule . index.php
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^$
+RewriteCond %{HTTP_HOST} !^(www\.)?rgkproject\.kz$ [NC]
+RewriteCond %{HTTP_HOST}---%{REQUEST_URI} ^([^\.]+)\.rgkproject\.kz---/([^/]+)? [NC]
+RewriteCond %1---%2 !^(.*)---\1$ [NC]
+RewriteCond %{DOCUMENT_ROOT}/%1/ -d
+RewriteRule ^(.*)?$ %1/$1 [QSA,PT]
